@@ -1,0 +1,21 @@
+as.matrix(t(as.matrix(Neu@assays$RNA@data)))->data
+write.csv(data,'./Neu_scenic/dat.csv')
+
+pyscenic grn ./dat.csv /public/workspace/liangyuan/Biotools/SCENIC/hs_hgnc_curated_tfs.txt -o ./adj.csv --num_workers 20
+
+pyscenic ctx ./adj.csv \
+   /public/workspace/liangyuan/Biotools/SCENIC/hg38_10kbp_up_10kbp_down_full_tx_v10_clust.genes_vs_motifs.rankings.feather \
+    /public/workspace/liangyuan/Biotools/SCENIC/hg38_500bp_up_100bp_down_full_tx_v10_clust.genes_vs_motifs.rankings.feather \
+    --annotations_fname /public/workspace/liangyuan/Biotools/SCENIC/motifs-v9-nr.hgnc-m0.001-o0.0.tbl \
+    --expression_mtx_fname ./dat.csv \
+    --output ./reg.csv \
+    --mode "custom_multiprocessing" \
+    --num_workers 20
+
+
+pyscenic aucell \
+    ./dat.csv \
+   ./reg.csv \
+    --output ./aucell.csv \
+    --num_workers 20
+
