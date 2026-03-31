@@ -181,21 +181,7 @@ seurat_to_spe <- function(seu, sample_id, img_id) {
 
 
 
-sce.combined$row[sce.combined$sample_name == "P11T"] = 
-  100 + sce.combined$row[sce.combined$sample_name == "P11T"]
-sce.combined$col[sce.combined$sample_name == "P3T"] = 
-  150 + sce.combined$col[sce.combined$sample_name == "P3T"]
-sce.combined$row[sce.combined$sample_name == "P5T"] = 
-  100 + sce.combined$row[sce.combined$sample_name == "P5T"]
-sce.combined$col[sce.combined$sample_name == "P7T"] = 
-  150 + sce.combined$col[sce.combined$sample_name == "P7T"]
-sce.combined$row[sce.combined$sample_name == "P8T"] = 
-  100 + sce.combined$row[sce.combined$sample_name == "P8T"]
-  sce.combined$col[sce.combined$sample_name == "P9T"] = 
-  150 + sce.combined$col[sce.combined$sample_name == "P9T"]
-    sce.combined$row[sce.combined$sample_name == "P9T"] = 
-  50 + sce.combined$row[sce.combined$sample_name == "P9T"]
-clusterPlot(sce.combined, "sample_name", color = NA) + #make sure no overlap between samples
+
   labs(fill = "Sample", title = "Offset check")
 
 sce.combined = spatialCluster(sce.combined, use.dimred = "HARMONY", q = 10, nrep = 10000) #use HARMONY
